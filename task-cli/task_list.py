@@ -9,7 +9,6 @@ from status import Status
 class TaskList:
 
   def __init__(self, filename: str="tasks.json"):
-    # self.tasks = defaultdict(Task)
     self.filename=filename
     self._check_file_exists()
 
@@ -45,15 +44,25 @@ class TaskList:
     print(f'Task added successfully (ID: {task.get_task_id()})')
     
     
-  def update_task(self, task_id: int, updated_task: Task) -> None:
-    pass
-    # load the tasks
-    # find the task with task_id 
-    # update that with updated task
-    # write back
+  def update_task(self, task_id: str, updated_task_desc: str) -> None:
+    if task_id == None:
+      print(f'Please enter valid task_id')
+      return 
+    tasks = self._load_tasks()
+    if task_id not in tasks:
+      print(f'Task id: {task_id} is not present in task list. Unable to update.')
+      return
+    tasks[task_id].set_description(updated_task_desc)
+    try:
+      self._write_tasks(tasks)
+    except Exception as e:
+      print(f'Failed to save task: {e}')
+      return
+    
+    print(f'Successfully updated task with task id: {task_id}.')
 
 
-  def delete_task(self, task_id: int) -> None:
+  def delete_task(self, task_id: str) -> None:
     if task_id == None:
       print(f'Please enter valid task_id')
       return 
@@ -66,7 +75,18 @@ class TaskList:
     self._write_tasks(tasks)
     
     print(f'Successfully deleted task with task id: {task_id} and description: {task.get_description()}')
-    
+
+  def mark_task(self, task_id: str, status: Status) -> None:
+    if task_id == None:
+      print(f'Please enter valid task_id')
+      return 
+    tasks = self._load_tasks()
+    if task_id not in tasks:
+      print(f'Task id: {task_id} is not present in task list. Unable to update status.')
+      return
+    tasks[task_id].set_status(status)
+    self._write_tasks(tasks)
+    print(f'Successfully marked task with task id: {task_id} as: {status}')
     
 
   def get_all_tasks(self) -> None:

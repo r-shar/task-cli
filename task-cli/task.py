@@ -17,23 +17,31 @@ class Task:
 
   def __dir__(self):
     return ['description', 'status', 'created_at', 'updated_at', 'id']
+  
+  def _set_updated_at(self):
+    curr_datetime = datetime.now()
+    self.updated_at = curr_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")  # Convert to string
+    return self.updated_at
 
   def get_description(self) -> str:
     return self.description
   
+  def set_description(self, new_desc) -> None:
+    self.description = new_desc
+    self._set_updated_at()
+
   def get_status(self) -> Status:
     return self.status 
+  
+  def set_status(self, new_status: Status) -> None:
+    self.status = new_status
   
   def get_created_at(self) -> datetime:
     return self.created_at
   
   def get_updated_at(self) -> datetime | None:
     return self.updated_at
-  
-  def __set_updated_at(self):
-    curr_datetime = datetime.now()
-    self.updated_at = curr_datetime
-    return self.updated_at
+
   
   def get_task_id(self):
     return self.id
@@ -58,5 +66,3 @@ class Task:
     instance.id = task_id
     
     return instance
-
-
