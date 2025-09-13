@@ -15,6 +15,15 @@ class Task:
     self.updated_at = updated_at
     self.id = uuid4()
 
+  def __repr__(self):
+    return (f"Task(task_id={self.id!r}, "
+            f"description={self.description!r}, "
+            f"status={self.status!r}, "
+            f"created_at={self.created_at!r})")
+
+  def __str__(self):
+    return f"[{self.id}], {self.description}, (status: {self.status}, created: {self.created_at}"
+
   def __dir__(self):
     return ['description', 'status', 'created_at', 'updated_at', 'id']
   
@@ -42,7 +51,6 @@ class Task:
   def get_updated_at(self) -> datetime | None:
     return self.updated_at
 
-  
   def get_task_id(self):
     return self.id
   
