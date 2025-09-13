@@ -18,7 +18,13 @@ def main():
   update_parser = subparsers.add_parser('update', help='Update an existing task')
   update_parser.add_argument('task_id', type=str, help='Task ID')
   update_parser.add_argument('updated_task', type=str, help='Updated Task')
+  status_parser = subparsers.add_parser(
+    "mark-in-progress",
+    aliases=["mark-done"],
+    help="Mark task in progress or done"
+  )
 
+  status_parser.add_argument('task_id', type=str, help='Task ID')
 
   args = argparser.parse_args()
 
@@ -30,6 +36,8 @@ def main():
     task_list.delete_task(args.task_id)
   elif args.command == 'update':
     task_list.update_task(args.task_id, args.updated_task)
+  elif args.command == 'mark-in-progress' or args.command == 'mark-done':
+    task_list.mark_task(args.task_id, args.command)
   else:
     argparser.print_help()
 

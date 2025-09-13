@@ -76,7 +76,7 @@ class TaskList:
     
     print(f'Successfully deleted task with task id: {task_id} and description: {task.get_description()}')
 
-  def mark_task(self, task_id: str, status: Status) -> None:
+  def mark_task(self, task_id: str, status_str: str) -> None:
     if task_id == None:
       print(f'Please enter valid task_id')
       return 
@@ -84,9 +84,17 @@ class TaskList:
     if task_id not in tasks:
       print(f'Task id: {task_id} is not present in task list. Unable to update status.')
       return
-    tasks[task_id].set_status(status)
+    match status_str:
+      case "mark-in-progress":
+        tasks[task_id].set_status(Status.IN_PROGRESS)
+      case "mark-done":
+        tasks[task_id].set_status(Status.DONE)
+      case _:
+        print(f'Invalid status state passed: {status_str}')
+
+
     self._write_tasks(tasks)
-    print(f'Successfully marked task with task id: {task_id} as: {status}')
+    print(f'Successfully marked task with task id: {task_id} as: {tasks[task_id].get_status()}')
     
 
   def get_all_tasks(self) -> None:

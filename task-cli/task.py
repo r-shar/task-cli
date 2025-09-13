@@ -20,7 +20,7 @@ class Task:
   
   def _set_updated_at(self):
     curr_datetime = datetime.now()
-    self.updated_at = curr_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")  # Convert to string
+    self.updated_at = curr_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")  
     return self.updated_at
 
   def get_description(self) -> str:
