@@ -15,7 +15,7 @@ A simple command-line task management tool built in Python that allows you to ma
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone git@github.com:r-shar/task-cli.git
 cd task-cli
 ```
 
