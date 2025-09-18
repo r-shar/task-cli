@@ -2,6 +2,8 @@
 
 A simple command-line task management tool built in Python that allows you to manage your tasks with persistent file storage.
 
+Project idea from [roadmap.sh](https://roadmap.sh/projects/task-tracker).
+
 ## Features
 
 - ✅ **Add tasks** - Create new tasks with descriptions
